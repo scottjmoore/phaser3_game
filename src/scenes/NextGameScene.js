@@ -1,22 +1,23 @@
 import 'phaser';
 import logoImg from '../assets/logo.png';
-import tilesImg from '../assets/dawn_of_the_gods.png';
+import tilesImg from '../assets/classical_ruin_tiles.png';
 
-export default class GameScene extends Phaser.Scene {
+export default class NextGameScene extends Phaser.Scene {
     constructor() {
-        super('Game');
+        super('NextGame');
     }
 
     preload() {
         this.load.image('logo', logoImg);
-        this.load.image('tiles', tilesImg);
+        this.load.image('newtiles', tilesImg);
 
     }
 
     create() {
-        this.tiles = this.add.image(window.innerWidth / 2, window.innerHeight / 2, 'tiles');
+        this.tiles = this.add.image(window.innerWidth / 2, window.innerHeight / 2, 'newtiles');
         this.logo = this.add.image(window.innerWidth / 2, window.innerHeight / 2, 'logo');
-        
+        this.tiles.setScale(3, 3);
+
         this.tweens.add({
           targets: this.logo,
           y: 200,
@@ -38,8 +39,8 @@ export default class GameScene extends Phaser.Scene {
         }, this);
 
         this.input.keyboard.on('keyup', (e) => {
-            if (e.key == '2') {
-                this.scene.start('NextGame');
+            if (e.key == '1') {
+                this.scene.start('Game');
             }
         }, this);
     }
