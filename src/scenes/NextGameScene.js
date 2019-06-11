@@ -17,7 +17,8 @@ export default class NextGameScene extends Phaser.Scene {
         this.tiles = this.add.image(window.innerWidth / 2, window.innerHeight / 2, 'newtiles');
         this.logo = this.add.image(window.innerWidth / 2, window.innerHeight / 2, 'logo');
         this.tiles.setScale(3, 3);
-
+        this.text = this.add.text(0, 0, "Welcome to the next scene!", {font: "40px Impact"});
+        
         this.tweens.add({
           targets: this.logo,
           y: 200,
@@ -35,7 +36,7 @@ export default class NextGameScene extends Phaser.Scene {
         this.input.on('pointerdown', (e) => {
             const physicsImg = this.physics.add.image(e.x, e.y, 'logo');
 
-            physicsImg.setVelocity(Phaser.Math.RND.integerInRange(-300, 300), -200);
+            physicsImg.setVelocity(Phaser.Math.RND.integerInRange(-300, 300), 200);
         }, this);
 
         this.input.keyboard.on('keyup', (e) => {
