@@ -1,6 +1,6 @@
 import 'phaser';
 import logoImg from '../assets/logo.png';
-import marioTilesImg from '../assets/mario_tiles.png';
+import marioTilesImg from '../assets/mario_tiles.2.png';
 import ballImg from '../assets/ball-sprite.18x18.png';
 
 export default class NextGameScene extends Phaser.Scene {
@@ -32,7 +32,7 @@ export default class NextGameScene extends Phaser.Scene {
             [  -1,   -1,   -1,   -1,   -1,   -1,   -1,   -1,   -1,  15,  15 ],
             [ 35,  36,  37,   -1,   -1,   -1,   -1,   -1,  15,  15,  15 ],
             [ 39,  39,  39,  39,  39,  39,  39,  39,  39,  39,  39 ],
-            [ 39,  39,  39,  39,  39,  39,  39,  39,  39,  39,  39 ],
+            [ 40,  40,  40,  40,  40,  40,  40,  40,  40,  40,  40 ],
             [ 39,  39,  39,  39,  39,  39,  39,  39,  39,  39,  39 ],
             [ 39,  39,  39,  39,  39,  39,  39,  39,  39,  39,  39 ]
         ];
