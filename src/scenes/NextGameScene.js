@@ -1,19 +1,18 @@
 import 'phaser';
 import logoImg from '../assets/logo.png';
-import tilesImg from '../assets/classical_ruin_tiles.png';
 import marioTilesImg from '../assets/mario_tiles.png';
+import ballImg from '../assets/ball-sprite.18x18.png';
 
 export default class NextGameScene extends Phaser.Scene {
     constructor() {
-        super('NextGame');
+        super('NextGameScene');
 
     }
 
-
     preload() {
         this.load.image('logo', logoImg);
-        this.load.image('newtiles', tilesImg);
         this.load.image('mariotiles', marioTilesImg);
+        this.load.image('ball', ballImg);
     }
 
     create() {
@@ -71,7 +70,7 @@ export default class NextGameScene extends Phaser.Scene {
         this.keyDown = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.S);
 
         this.input.on('pointerdown', (e) => {
-            const physicsImg = this.physics.add.image(e.x, e.y, 'logo');
+            const physicsImg = this.physics.add.image(e.x, e.y, 'ball').setScale(4, 4).setAngularVelocity(Phaser.Math.RND.integerInRange(-180, 180));
 
             physicsImg.setVelocity(Phaser.Math.RND.integerInRange(-300, 300), 200);
         }, this);
