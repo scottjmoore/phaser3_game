@@ -39,6 +39,7 @@ export default class GameScene extends Phaser.Scene {
             const physicsImg = this.physics.add.image(e.x, e.y, 'logo');
 
             physicsImg.setVelocity(Phaser.Math.RND.integerInRange(-300, 300), -200);
+            // physicsImg.setCollideWorldBounds(true);
         }, this);
 
         this.input.keyboard.on('keyup', (e) => {
