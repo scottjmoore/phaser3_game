@@ -31,6 +31,9 @@ export default class NextGameScene extends Phaser.Scene {
             [ -1,   -1,  14,  14,  14,  14,  14,   -1,   -1,   -1,  15 ],
             [  -1,   -1,   -1,   -1,   -1,   -1,   -1,   -1,   -1,  15,  15 ],
             [ 35,  36,  37,   -1,   -1,   -1,   -1,   -1,  15,  15,  15 ],
+            [ 39,  39,  39,  39,  39,  39,  39,  39,  39,  39,  39 ],
+            [ 39,  39,  39,  39,  39,  39,  39,  39,  39,  39,  39 ],
+            [ 39,  39,  39,  39,  39,  39,  39,  39,  39,  39,  39 ],
             [ 39,  39,  39,  39,  39,  39,  39,  39,  39,  39,  39 ]
         ];
 
@@ -44,6 +47,9 @@ export default class NextGameScene extends Phaser.Scene {
             [  0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0 ],
             [  0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0 ],
             [  0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0 ],
+            [ 10,  10,  10,  10,  10,  10,  10,  10,  10,  10,  10 ],
+            [  0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0 ],
+            [  0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0 ],
             [  0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0 ],
             [  0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0 ]
         ];
@@ -52,8 +58,8 @@ export default class NextGameScene extends Phaser.Scene {
         const mapBack = this.make.tilemap({ data: levelBack, tileWidth: 16, tileHeight: 16 });
         const marioTilesFront = mapFront.addTilesetImage('mariotiles');
         const marioTilesBack = mapBack.addTilesetImage('mariotiles');
-        const layerBack = mapBack.createStaticLayer(0, marioTilesBack, 0, 0).setScale(4, 4).setDepth(-1);
-        const layerFront = mapFront.createStaticLayer(0, marioTilesFront, 0, 0).setScale(4, 4).setDepth(1);
+        const layerBack = mapBack.createStaticLayer(0, marioTilesBack, 0, 0).setScale(4, 4).setDepth(1);
+        const layerFront = mapFront.createStaticLayer(0, marioTilesFront, 0, 0).setScale(4, 4).setDepth(3);
 
         this.tweens.add({
           targets: this.logo,
@@ -70,8 +76,10 @@ export default class NextGameScene extends Phaser.Scene {
         this.keyDown = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.S);
 
         this.input.on('pointerdown', (e) => {
-            const physicsImg = this.physics.add.image(e.x, e.y, 'ball').setScale(4, 4).setAngularVelocity(Phaser.Math.RND.integerInRange(-180, 180));
-
+            const physicsImg = this.physics.add.sprite(e.x, e.y, 'ball').setDepth(2);
+            physicsImg.setScale(4, 4);
+            physicsImg.setAngularVelocity(Phaser.Math.RND.integerInRange(-180, 180));
+            physicsImg.setCollideWorldBounds(true, true, true);
             physicsImg.setVelocity(Phaser.Math.RND.integerInRange(-300, 300), 200);
         }, this);
 
@@ -83,19 +91,5 @@ export default class NextGameScene extends Phaser.Scene {
     }
 
     update(delta) {
-        if (this.keyLeft.isDown) {
-            this.tiles.x--;
-        }
-
-        if (this.keyRight.isDown) {
-            this.tiles.x++;
-        }
-        if (this.keyUp.isDown) {
-            this.tiles.y--;
-        }
-
-        if (this.keyDown.isDown) {
-            this.tiles.y++;
-        }
     }
 }
