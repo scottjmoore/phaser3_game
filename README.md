@@ -1,3 +1,5 @@
+[![Netlify Status](https://api.netlify.com/api/v1/badges/d5c1536d-c6dc-4958-9007-893d3c66792e/deploy-status)](https://app.netlify.com/sites/lucid-villani-bde169/deploys)
+
 # Phaser 3 Webpack Project Template
 
 A Phaser 3 project template with ES6 support via [Babel 7](https://babeljs.io/) and [Webpack 4](https://webpack.js.org/)
