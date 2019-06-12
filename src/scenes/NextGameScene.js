@@ -19,7 +19,6 @@ export default class NextGameScene extends Phaser.Scene {
         this.logo = this.add.image(window.innerWidth / 2, window.innerHeight / 2, 'logo');
         this.tiles.setScale(3, 3);
         this.text = this.add.text(0, 0, "Welcome to the next scene!", {font: "40px Impact"});
-
         this.text.setColor('red');
 
         this.tweens.add({
