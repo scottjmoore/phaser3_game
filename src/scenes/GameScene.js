@@ -10,7 +10,6 @@ export default class GameScene extends Phaser.Scene {
     preload() {
         this.load.image('logo', logoImg);
         this.load.image('tiles', tilesImg);
-
     }
 
     create() {
@@ -18,7 +17,7 @@ export default class GameScene extends Phaser.Scene {
         this.logo = this.add.image(0, 0, 'logo');
         this.text = this.add.text(0, 0, "Welcome to the scene!", {font: "40px Impact"});
         this.text.setColor('yellow');
-        
+
         this.tweens.add({
           targets: this.logo,
           x: window.innerWidth,

@@ -5,12 +5,13 @@ import tilesImg from '../assets/classical_ruin_tiles.png';
 export default class NextGameScene extends Phaser.Scene {
     constructor() {
         super('NextGame');
+
     }
+
 
     preload() {
         this.load.image('logo', logoImg);
         this.load.image('newtiles', tilesImg);
-
     }
 
     create() {
@@ -18,8 +19,9 @@ export default class NextGameScene extends Phaser.Scene {
         this.logo = this.add.image(window.innerWidth / 2, window.innerHeight / 2, 'logo');
         this.tiles.setScale(3, 3);
         this.text = this.add.text(0, 0, "Welcome to the next scene!", {font: "40px Impact"});
+
         this.text.setColor('red');
-        
+
         this.tweens.add({
           targets: this.logo,
           y: 200,
