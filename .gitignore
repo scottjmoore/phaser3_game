@@ -12,4 +12,4 @@ node_modules/
 # Build
 dist/
 /npm-debug.log
-src/assets.H14128.kra
+*.kra
