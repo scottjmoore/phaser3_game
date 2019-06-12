@@ -15,14 +15,18 @@ export default class GameScene extends Phaser.Scene {
 
     create() {
         this.tiles = this.add.image(window.innerWidth / 2, window.innerHeight / 2, 'tiles');
-        this.logo = this.add.image(window.innerWidth / 2, window.innerHeight / 2, 'logo');
+        this.logo = this.add.image(0, 0, 'logo');
         this.text = this.add.text(0, 0, "Welcome to the scene!", {font: "40px Impact"});
-
+        this.text.setColor('yellow');
+        
         this.tweens.add({
           targets: this.logo,
-          y: 200,
-          duration: 2000,
+          x: window.innerWidth,
+          y: window.innerHeight,
+          duration: 5000,
           ease: "Power2",
+          easeParams: [2.0, 0.25],
+          delay: 1000,
           yoyo: true,
           loop: -1
         });
