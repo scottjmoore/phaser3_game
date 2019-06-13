@@ -16,9 +16,10 @@ export default class NextGameScene extends Phaser.Scene {
     }
 
     create() {
-        this.logo = this.add.image(window.innerWidth / 2, window.innerHeight / 2, 'logo');
-        this.text = this.add.text(0, 0, "Welcome to the next scene!", {font: "40px Impact"});
-        this.text.setColor('red');
+        this.logo = this.add.image(window.innerWidth / 2, window.innerHeight / 2, 'logo').setDepth(2);;
+        this.text = this.add.text(0, 0, "Welcome to the next scene!", {font: "40px Impact"}).setDepth(4);
+	
+	this.text.setColor('red');
         this.frameCount = 0;
 
         const levelFront = [
