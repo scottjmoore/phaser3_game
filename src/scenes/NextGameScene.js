@@ -76,7 +76,7 @@ export default class NextGameScene extends Phaser.Scene {
         this.keyDown = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.S);
 
         this.input.on('pointerdown', (e) => {
-            const physicsImg = this.physics.add.sprite(e.x, e.y, 'ball').setDepth(2);
+            const physicsImg = this.physics.add.sprite(e.x, e.y, 'ball').setDepth(Phaser.Math.RND.integerInRange(2, 4));
             physicsImg.setScale(Phaser.Math.RND.integerInRange(3, 5));
             physicsImg.setAngularVelocity(Phaser.Math.RND.integerInRange(-180, 180));
             physicsImg.setCollideWorldBounds(true, true, true);
