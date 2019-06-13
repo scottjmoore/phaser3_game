@@ -77,7 +77,7 @@ export default class NextGameScene extends Phaser.Scene {
 
         this.input.on('pointerdown', (e) => {
             const physicsImg = this.physics.add.sprite(e.x, e.y, 'ball').setDepth(2);
-            physicsImg.setScale(4, 4);
+            physicsImg.setScale(Phaser.Math.RND.integerInRange(3, 5));
             physicsImg.setAngularVelocity(Phaser.Math.RND.integerInRange(-180, 180));
             physicsImg.setCollideWorldBounds(true, true, true);
             physicsImg.setVelocity(Phaser.Math.RND.integerInRange(-300, 300), 200);
