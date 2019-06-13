@@ -91,13 +91,9 @@ export default class NextGameScene extends Phaser.Scene {
     }
 
     update(delta) {
-        this.layerFront.tilemap.forEachTile((tile) => {
-            if ((tile.x === 4) && (tile.y === 4)) {
-                tile.index++;
-                if (tile.index > 40) {
-                    tile.index = 0;
-                }
-            }
-        });
+        const animTile = this.layerFront.tilemap.layers[0].data[4][4];
+        animTile.index++;
+
+        if (animTile.index > 40) animTile.index = -1;
     }
 }
