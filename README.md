@@ -1,11 +1,8 @@
 [![Netlify Status](https://api.netlify.com/api/v1/badges/d5c1536d-c6dc-4958-9007-893d3c66792e/deploy-status)](https://app.netlify.com/sites/lucid-villani-bde169/deploys)
 
-# Phaser 3 Webpack Project Template
+# Phaser 3 Game
 
-A Phaser 3 project template with ES6 support via [Babel 7](https://babeljs.io/) and [Webpack 4](https://webpack.js.org/)
-that includes hot-reloading for development and production-ready builds.
-
-Loading images via JavaScript module `import` is also supported.
+Phaser 3 game project. 
 
 ## Requirements
 
