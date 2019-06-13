@@ -1,6 +1,6 @@
 import 'phaser';
 import logoImg from '../assets/logo.png';
-import marioTilesImg from '../assets/mario_tiles.2.png';
+import marioTilesImg from '../assets/mario_tiles.png';
 import ballImg from '../assets/ball-sprite.18x18.png';
 
 export default class NextGameScene extends Phaser.Scene {
@@ -27,7 +27,7 @@ export default class NextGameScene extends Phaser.Scene {
             [ -1,   -1,   -1,   -1,   -1,   -1,   -1,   -1,   -1,   -1,   -1 ],
             [  -1,   -1,   -1,  14,  13,  14,   -1,   -1,   -1,   -1,   -1 ],
             [ -1,   -1,   -1,   -1,   -1,   -1,   -1,   -1,   -1,   -1,   -1 ],
-            [  -1,   -1,   -1,   -1,   11,   -1,   -1,   -1,   -1,   -1,   -1 ],
+            [  -1,   -1,   -1,   18,   11,   18,   -1,   -1,   -1,   -1,   -1 ],
             [ -1,   -1,  14,  14,  14,  14,  14,   -1,   -1,   -1,  15 ],
             [  -1,   -1,   -1,   -1,   -1,   -1,   -1,   -1,   -1,  15,  15 ],
             [ 35,  36,  37,   -1,   -1,   -1,   -1,   -1,  15,  15,  15 ],
@@ -47,7 +47,7 @@ export default class NextGameScene extends Phaser.Scene {
             [  0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0 ],
             [  0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0 ],
             [  0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0 ],
-            [ 10,  10,  10,  10,  10,  10,  10,  10,  10,  10,  10 ],
+            [  0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0 ],
             [  0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0 ],
             [  0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0 ],
             [  0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0 ],
@@ -59,8 +59,8 @@ export default class NextGameScene extends Phaser.Scene {
         const marioTilesFront = mapFront.addTilesetImage('mariotiles');
         const marioTilesBack = mapBack.addTilesetImage('mariotiles');
         const layerBack = mapBack.createStaticLayer(0, marioTilesBack, 0, 0).setScale(4, 4).setDepth(1);
-        const layerFront = mapFront.createStaticLayer(0, marioTilesFront, 0, 0).setScale(4, 4).setDepth(3);
-
+        this.layerFront = mapFront.createDynamicLayer(0, marioTilesFront, 0, 0).setScale(4, 4).setDepth(3);
+        
         this.tweens.add({
           targets: this.logo,
           y: 200,
@@ -91,5 +91,13 @@ export default class NextGameScene extends Phaser.Scene {
     }
 
     update(delta) {
+        this.layerFront.tilemap.forEachTile((tile) => {
+            if ((tile.x === 4) && (tile.y === 4)) {
+                tile.index++;
+                if (tile.index > 40) {
+                    tile.index = 0;
+                }
+            }
+        });
     }
 }
