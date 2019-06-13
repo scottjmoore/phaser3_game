@@ -19,6 +19,7 @@ export default class NextGameScene extends Phaser.Scene {
         this.logo = this.add.image(window.innerWidth / 2, window.innerHeight / 2, 'logo');
         this.text = this.add.text(0, 0, "Welcome to the next scene!", {font: "40px Impact"});
         this.text.setColor('red');
+        this.frameCount = 0;
 
         const levelFront = [
             [  -1,   -1,   -1,   -1,   -1,   -1,   -1,   -1,   -1,   -1,   -1 ],
@@ -91,9 +92,13 @@ export default class NextGameScene extends Phaser.Scene {
     }
 
     update(delta) {
-        const animTile = this.layerFront.tilemap.layers[0].data[4][4];
-        animTile.index++;
+        this.frameCount++;
 
-        if (animTile.index > 40) animTile.index = -1;
+        if ((this.frameCount % 30) === 0) {
+            const animTile = this.layerFront.tilemap.layers[0].data[4][4];
+            animTile.index++;
+
+            if (animTile.index > 40) animTile.index = -1;
+        }
     }
 }
