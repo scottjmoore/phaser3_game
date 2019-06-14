@@ -3,6 +3,7 @@ import logoImg from '../assets/logo.png';
 import marioTilesImg from '../assets/mario_tiles.png';
 import ballImg from '../assets/ball-sprite.18x18.png';
 import tokiImg from '../assets/toki.0.0.png';
+import level0JSON from '../assets/maps/level0.json';
 
 export default class NextGameScene extends Phaser.Scene {
     constructor() {
@@ -12,63 +13,29 @@ export default class NextGameScene extends Phaser.Scene {
 
     preload() {
         this.load.image('logo', logoImg);
-        this.load.image('mariotiles', marioTilesImg);
         this.load.image('ball', ballImg);
         this.load.image('toki', tokiImg);
+        this.load.tilemapTiledJSON('level0', level0JSON);
+        this.load.image('mario_tiles', marioTilesImg);
     }
 
     create() {
         this.logo = this.add.image(window.innerWidth / 2, window.innerHeight / 2, 'logo').setDepth(2);;
+        
         this.text1 = this.add.text(1, 4, "Welcome to the next scene!", {font: "40px Impact"}).setDepth(4);
-	this.text2 = this.add.text(4, 1, "Welcome to the next scene!", {font: "40px Impact"}).setDepth(5);	
-	this.text1.setColor('black');
-	this.text2.setColor('white');
+	    this.text2 = this.add.text(4, 1, "Welcome to the next scene!", {font: "40px Impact"}).setDepth(5);	
+	    this.text1.setColor('black');
+        this.text2.setColor('white');
+
+        this.level = this.add.tilemap('level0');
+        this.tileset = this.level.addTilesetImage('mario_tiles', 'mario_tiles');
+        this.layerBackground = this.level.createStaticLayer('Background', this.tileset).setScale(4, 4);
+        this.layerHills = this.level.createStaticLayer('Hills', this.tileset).setScale(4, 4);
+        this.layerClouds = this.level.createStaticLayer('Clouds', this.tileset).setScale(4, 4);
+        this.layerForeground = this.level.createStaticLayer('Foreground', this.tileset).setScale(4, 4);
+        this.layerGrass = this.level.createStaticLayer('Grass', this.tileset).setScale(4, 4);
 
         this.frameCount = 0;
-
-        const levelFront = [
-            [ -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1 ],
-            [ -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1 ],
-            [ -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1 ],
-            [ -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1 ],
-            [ -1,  -1,  -1,  14,  13,  14,  -1,  -1,  -1,  -1,  -1,  -1,  -1 ],
-            [ -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1 ],
-            [ -1,  -1,  -1,  18,  11,  18,  -1,  -1,  -1,  -1,  -1,  -1,  -1 ],
-            [ -1,  -1,  14,  14,  14,  14,  14,  -1,  -1,  -1,  15,  -1,  -1 ],
-            [ -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1,  15,  15,  15,  -1 ],
-            [ 35,  36,  37,  -1,  -1,  -1,  -1,  -1,  15,  15,  15,  15,  15 ],
-            [ 39,  39,  39,  39,  39,  39,  39,  39,  39,  39,  39,  39,  39 ],
-            [ 40,  40,  40,  40,  40,  40,  40,  40,  40,  40,  40,  40,  40 ],
-            [ 41,  41,  41,  41,  41,  41,  41,  41,  41,  41,  41,  41,  41 ],
-            [ 42,  42,  42,  42,  42,  42,  42,  42,  42,  42,  42,  42,  42 ]
-        ];
-
-        const levelBack = [
-            [  0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0 ],
-            [  0,   1,   2,   3,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0 ],
-            [  0,   5,   6,   7,   0,   0,   0,   0,   1,   2,   3,   0,   0,   0,   0,   0 ],
-            [  0,   0,   0,   0,   0,   0,   0,   0,   5,   6,   7,   0,   0,   0,   0,   0 ],
-            [  0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0 ],
-            [  0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0 ],
-            [  0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0 ],
-            [  0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0 ],
-            [  0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0 ],
-            [  0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0 ],
-            [  0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0 ],
-            [  0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0 ],
-            [  0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0 ],
-            [  0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0 ]
-        ];
-
-        const mapFront = this.make.tilemap({ data: levelFront, tileWidth: 16, tileHeight: 16 });
-        const mapBack = this.make.tilemap({ data: levelBack, tileWidth: 16, tileHeight: 16 });
-        const marioTilesFront = mapFront.addTilesetImage('mariotiles');
-        const marioTilesBack = mapBack.addTilesetImage('mariotiles');
-        const layerBack = mapBack.createStaticLayer(0, marioTilesBack, 0, 0).setScale(4, 4);
-        this.layerFront = mapFront.createDynamicLayer(0, marioTilesFront, 0, 0).setScale(4, 4);
-        
-        layerBack.setDepth(0);
-        this.layerFront.setDepth(5);
 
         this.tweens.add({
           targets: this.logo,
@@ -102,12 +69,9 @@ export default class NextGameScene extends Phaser.Scene {
 
     update(delta) {
         this.frameCount++;
-
-        if ((this.frameCount % 15) === 0) {
-            const animTile = this.layerFront.tilemap.layers[0].data[4][4];
-            animTile.index++;
-
-            if (animTile.index > 40) animTile.index = -1;
-        }
+        this.layerHills.setPosition(-this.frameCount, -1200);
+        this.layerClouds.setPosition(-this.frameCount, -1200);
+        this.layerForeground.setPosition(-this.frameCount * 2, -1200);
+        this.layerGrass.setPosition(-this.frameCount * 2, -1200);
     }
 }
