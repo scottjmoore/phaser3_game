@@ -36,6 +36,8 @@ export default class NextGameScene extends Phaser.Scene {
         this.layerGrass = this.level.createStaticLayer('Grass', this.tileset).setScale(4, 4);
 
         this.frameCount = 0;
+        this.PositionX = 0;
+        this.PositionY = 0;
 
         this.tweens.add({
           targets: this.logo,
@@ -69,9 +71,23 @@ export default class NextGameScene extends Phaser.Scene {
 
     update(delta) {
         this.frameCount++;
-        this.layerHills.setPosition(-this.frameCount, -1200);
-        this.layerClouds.setPosition(-this.frameCount, -1200);
-        this.layerForeground.setPosition(-this.frameCount * 2, -1200);
-        this.layerGrass.setPosition(-this.frameCount * 2, -1200);
+
+        if (this.keyLeft.isDown == true) {
+            this.PositionX--;
+        }
+        if (this.keyRight.isDown == true) {
+            this.PositionX++;
+        }
+        if (this.keyUp.isDown == true) {
+            this.PositionY--;
+        }
+        if (this.keyDown.isDown == true) {
+            this.PositionY++;
+        }
+
+        this.layerHills.setPosition(-this.PositionX >> 1, -1200 + (this.PositionY >> 1));
+        this.layerClouds.setPosition(-this.PositionX, -1200 + this.PositionY);
+        this.layerForeground.setPosition(-this.PositionX << 1, -1200 + (this.PositionY << 1));
+        this.layerGrass.setPosition(-this.PositionX << 1, -1200 + (this.PositionY << 1));
     }
 }
