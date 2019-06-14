@@ -39,6 +39,8 @@ export default class NextGameScene extends Phaser.Scene {
         this.PositionX = 0;
         this.PositionY = 0;
 
+        this.camera = this.cameras.add(0,0,320,256);
+
         this.tweens.add({
           targets: this.logo,
           y: 200,
@@ -54,7 +56,7 @@ export default class NextGameScene extends Phaser.Scene {
         this.keyDown = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.S);
 
         this.input.on('pointerdown', (e) => {
-            const physicsImg = this.physics.add.sprite(e.x, e.y, Phaser.Math.RND.integerInRange(0, 1) ? 'ball' : 'toki');
+            const physicsImg = this.physics.add.sprite(e.x + this.PositionX, e.y + this.PositionY, Phaser.Math.RND.integerInRange(0, 1) ? 'ball' : 'toki');
             physicsImg.setScale(Phaser.Math.RND.integerInRange(3, 5));
             physicsImg.setAngularVelocity(Phaser.Math.RND.integerInRange(-180, 180));
             physicsImg.setCollideWorldBounds(true, true, true);
@@ -85,9 +87,12 @@ export default class NextGameScene extends Phaser.Scene {
             this.PositionY++;
         }
 
-        this.layerHills.setPosition(-this.PositionX >> 1, -1200 + (this.PositionY >> 1));
-        this.layerClouds.setPosition(-this.PositionX, -1200 + this.PositionY);
-        this.layerForeground.setPosition(-this.PositionX << 1, -1200 + (this.PositionY << 1));
-        this.layerGrass.setPosition(-this.PositionX << 1, -1200 + (this.PositionY << 1));
+        // this.layerHills.setPosition(-this.PositionX >> 1, -1200 + (this.PositionY >> 1));
+        // this.layerClouds.setPosition(-this.PositionX, -1200 + this.PositionY);
+        // this.layerForeground.setPosition(-this.PositionX << 1, -1200 + (this.PositionY << 1));
+        // this.layerGrass.setPosition(-this.PositionX << 1, -1200 + (this.PositionY << 1));
+
+        this.camera.scrollX = this.PositionX;
+        this.camera.scrollY = this.PositionY;
     }
 }
