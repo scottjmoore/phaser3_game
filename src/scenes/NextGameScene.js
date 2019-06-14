@@ -101,7 +101,7 @@ export default class NextGameScene extends Phaser.Scene {
     update(delta) {
         this.frameCount++;
 
-        if ((this.frameCount % 30) === 0) {
+        if ((this.frameCount % 15) === 0) {
             const animTile = this.layerFront.tilemap.layers[0].data[4][4];
             animTile.index++;
 
