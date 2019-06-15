@@ -4,6 +4,8 @@ import marioTilesImg from '../assets/mario_tiles.png';
 import ballImg from '../assets/ball-sprite.18x18.png';
 import tokiImg from '../assets/toki.0.0.png';
 import level0JSON from '../assets/maps/level0.json';
+import otherlevelJSON from '../assets/maps/other.json';
+import otherlevelImg from '../assets/maps/other.png';
 import knightImg from '../assets/sprites/knight.png';
 import knightJSON from '../assets/sprites/knight.json';
 
@@ -17,7 +19,9 @@ export default class NextGameScene extends Phaser.Scene {
         this.load.image('ball', ballImg);
         this.load.image('toki', tokiImg);
         this.load.tilemapTiledJSON('level0', level0JSON);
+        this.load.tilemapTiledJSON('otherlevel', otherlevelJSON);
         this.load.image('mario_tiles', marioTilesImg);
+        this.load.image('other', otherlevelImg);
         this.load.atlas('knight', knightImg, knightJSON);
     }
 
@@ -36,6 +40,10 @@ export default class NextGameScene extends Phaser.Scene {
         this.layerClouds = this.level.createStaticLayer('Clouds', this.tileset).setScale(4, 4).setDepth(3);
         this.layerForeground = this.level.createStaticLayer('Foreground', this.tileset).setScale(4, 4).setDepth(4);
         this.layerGrass = this.level.createStaticLayer('Grass', this.tileset).setScale(4, 4).setDepth(5);
+
+        this.otherlevel = this.add.tilemap('otherlevel');
+        this.othertileset = this.otherlevel.addTilesetImage('other', 'other');
+        this.otherlayer = this.otherlevel.createStaticLayer('Foreground',this.othertileset).setScale(0.5, 0.5).setDepth(6);
 
         this.knight1 = this.add.sprite(100, 748, 'knight').setDepth(4);
 
