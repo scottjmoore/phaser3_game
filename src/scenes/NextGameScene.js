@@ -4,11 +4,12 @@ import marioTilesImg from '../assets/mario_tiles.png';
 import ballImg from '../assets/ball-sprite.18x18.png';
 import tokiImg from '../assets/toki.0.0.png';
 import level0JSON from '../assets/maps/level0.json';
+import knightImg from '../assets/sprites/knight.png';
+import knightJSON from '../assets/sprites/knight.json';
 
 export default class NextGameScene extends Phaser.Scene {
     constructor() {
         super('NextGameScene');
-
     }
 
     preload() {
@@ -17,6 +18,7 @@ export default class NextGameScene extends Phaser.Scene {
         this.load.image('toki', tokiImg);
         this.load.tilemapTiledJSON('level0', level0JSON);
         this.load.image('mario_tiles', marioTilesImg);
+        this.load.atlas('knight', knightImg, knightJSON);
     }
 
     create() {
@@ -29,11 +31,42 @@ export default class NextGameScene extends Phaser.Scene {
 
         this.level = this.add.tilemap('level0');
         this.tileset = this.level.addTilesetImage('mario_tiles', 'mario_tiles');
-        this.layerBackground = this.level.createStaticLayer('Background', this.tileset).setScale(4, 4);
-        this.layerHills = this.level.createStaticLayer('Hills', this.tileset).setScale(4, 4);
-        this.layerClouds = this.level.createStaticLayer('Clouds', this.tileset).setScale(4, 4);
-        this.layerForeground = this.level.createStaticLayer('Foreground', this.tileset).setScale(4, 4);
-        this.layerGrass = this.level.createStaticLayer('Grass', this.tileset).setScale(4, 4);
+        this.layerBackground = this.level.createStaticLayer('Background', this.tileset).setScale(4, 4).setDepth(1);
+        this.layerHills = this.level.createStaticLayer('Hills', this.tileset).setScale(4, 4).setDepth(2);
+        this.layerClouds = this.level.createStaticLayer('Clouds', this.tileset).setScale(4, 4).setDepth(3);
+        this.layerForeground = this.level.createStaticLayer('Foreground', this.tileset).setScale(4, 4).setDepth(4);
+        this.layerGrass = this.level.createStaticLayer('Grass', this.tileset).setScale(4, 4).setDepth(5);
+
+        this.knight1 = this.add.sprite(100, 708, 'knight').setScale(2, 2);
+        this.knight1.setDepth(4);
+
+        // const knight2 = this.add.sprite(150, 100, 'knight');
+
+        this.anims.create({
+            key: 'knightwalk',
+            repeat: -1,
+            frameRate: 10,
+            frames: this.anims.generateFrameNames('knight', {
+                prefix: 'Walk (',
+                suffix: ').png',
+                start: 1,
+                end: 10,
+            })
+        });
+        this.anims.create({
+            key: 'knightidle',
+            repeat: -1,
+            frameRate: 10,
+            frames: this.anims.generateFrameNames('knight', {
+                prefix: 'Idle (',
+                suffix: ').png',
+                start: 1,
+                end: 10,
+            })
+        });
+
+        this.knight1.play('knightidle');
+        // knight2.play('knightidle');
 
         this.frameCount = 0;
         this.PositionX = 0;
@@ -72,26 +105,48 @@ export default class NextGameScene extends Phaser.Scene {
     update(delta) {
         this.frameCount++;
 
+        var moving = false;
+
         if (this.keyLeft.isDown == true) {
             this.PositionX--;
-		this.frameCount = 0
+            this.frameCount = 0
+            this.knight1.scaleX = -2;
+            moving = true;
         }
         if (this.keyRight.isDown == true) {
             this.PositionX++;
+            this.frameCount = 0
+            this.knight1.scaleX = 2;
+            moving = true;
         }
         if (this.keyUp.isDown == true) {
             this.PositionY--;
+            this.frameCount = 0
+            moving = true;
         }
         if (this.keyDown.isDown == true) {
             this.PositionY++;
+            this.frameCount = 0
+            moving = true;
         }
-	if (this.frameCount > 90) {
-		this.PositionX++;
-	}
+    
+        if (this.frameCount > 90) {
+            this.PositionX++;
+            moving = true;
+	    }
 
         this.layerHills.setPosition(-this.PositionX >> 1, -1200 + (this.PositionY >> 1));
         this.layerClouds.setPosition(-this.PositionX, -1200 + this.PositionY);
         this.layerForeground.setPosition(-this.PositionX << 1, -1200 + (this.PositionY << 1));
         this.layerGrass.setPosition(-this.PositionX << 1, -1200 + (this.PositionY << 1));
+
+        // console.log(`Knight anim : ${this.knight1.anims.currentAnim.key}`);
+ 
+        if ((moving === true) && (this.knight1.anims.currentAnim.key != 'knightwalk')) {
+            this.knight1.play('knightwalk');
+        }
+        if ((moving === false) && (this.knight1.anims.currentAnim.key != 'knightidle')) {
+            this.knight1.play('knightidle');
+        }
     }
 }
