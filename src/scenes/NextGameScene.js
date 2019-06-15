@@ -43,7 +43,7 @@ export default class NextGameScene extends Phaser.Scene {
 
         this.otherlevel = this.add.tilemap('otherlevel');
         this.othertileset = this.otherlevel.addTilesetImage('other', 'other');
-        this.otherlayer = this.otherlevel.createStaticLayer('Foreground',this.othertileset).setScale(0.5, 0.5).setDepth(6);
+        this.otherlayer = this.otherlevel.createStaticLayer('Foreground',this.othertileset).setScale(0.5, 0.5).setDepth(6).setAlpha(0.5);
 
         this.knight1 = this.add.sprite(100, 748, 'knight').setDepth(4);
 
