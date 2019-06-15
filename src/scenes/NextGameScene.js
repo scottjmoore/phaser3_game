@@ -131,6 +131,7 @@ export default class NextGameScene extends Phaser.Scene {
     
         if (this.frameCount > 90) {
             this.PositionX++;
+            this.knight1.scaleX = 1;
             moving = true;
 	    }
 
