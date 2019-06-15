@@ -63,6 +63,17 @@ export default class NextGameScene extends Phaser.Scene {
                 end: 10,
             })
         });
+        this.anims.create({
+            key: 'knightjump',
+            repeat: -1,
+            frameRate: 10,
+            frames: this.anims.generateFrameNames('knight', {
+                prefix: 'Jump (',
+                suffix: ').png',
+                start: 1,
+                end: 10,
+            })
+        });
 
         this.knight1.play('knightidle');
         // knight2.play('knightidle');
@@ -105,6 +116,7 @@ export default class NextGameScene extends Phaser.Scene {
         this.frameCount++;
 
         var moving = false;
+        var jumping = false;
 
         if (this.keyLeft.isDown == true) {
             this.PositionX--;
@@ -121,12 +133,14 @@ export default class NextGameScene extends Phaser.Scene {
         if (this.keyUp.isDown == true) {
             this.PositionY--;
             this.frameCount = 0
-            moving = true;
+            moving = false;
+            jumping = true;
         }
         if (this.keyDown.isDown == true) {
             this.PositionY++;
             this.frameCount = 0
-            moving = true;
+            moving = false;
+            jumping = true;
         }
     
         if (this.frameCount > 90) {
@@ -145,7 +159,10 @@ export default class NextGameScene extends Phaser.Scene {
         if ((moving === true) && (this.knight1.anims.currentAnim.key != 'knightwalk')) {
             this.knight1.play('knightwalk');
         }
-        if ((moving === false) && (this.knight1.anims.currentAnim.key != 'knightidle')) {
+        if ((jumping === true) && (this.knight1.anims.currentAnim.key != 'knightjump')) {
+            this.knight1.play('knightjump');
+        }
+        if ((moving === false) && (jumping === false) && (this.knight1.anims.currentAnim.key != 'knightidle')) {
             this.knight1.play('knightidle');
         }
     }
