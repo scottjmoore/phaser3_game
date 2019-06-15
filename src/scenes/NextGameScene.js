@@ -37,8 +37,7 @@ export default class NextGameScene extends Phaser.Scene {
         this.layerForeground = this.level.createStaticLayer('Foreground', this.tileset).setScale(4, 4).setDepth(4);
         this.layerGrass = this.level.createStaticLayer('Grass', this.tileset).setScale(4, 4).setDepth(5);
 
-        this.knight1 = this.add.sprite(100, 708, 'knight').setScale(2, 2);
-        this.knight1.setDepth(4);
+        this.knight1 = this.add.sprite(100, 748, 'knight').setDepth(4);
 
         // const knight2 = this.add.sprite(150, 100, 'knight');
 
@@ -110,13 +109,13 @@ export default class NextGameScene extends Phaser.Scene {
         if (this.keyLeft.isDown == true) {
             this.PositionX--;
             this.frameCount = 0
-            this.knight1.scaleX = -2;
+            this.knight1.scaleX = -1;
             moving = true;
         }
         if (this.keyRight.isDown == true) {
             this.PositionX++;
             this.frameCount = 0
-            this.knight1.scaleX = 2;
+            this.knight1.scaleX = 1;
             moving = true;
         }
         if (this.keyUp.isDown == true) {
