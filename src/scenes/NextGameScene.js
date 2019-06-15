@@ -74,6 +74,7 @@ export default class NextGameScene extends Phaser.Scene {
 
         if (this.keyLeft.isDown == true) {
             this.PositionX--;
+		this.frameCount = 0
         }
         if (this.keyRight.isDown == true) {
             this.PositionX++;
@@ -84,6 +85,9 @@ export default class NextGameScene extends Phaser.Scene {
         if (this.keyDown.isDown == true) {
             this.PositionY++;
         }
+	if (this.frameCount > 90) {
+		this.PositionX++;
+	}
 
         this.layerHills.setPosition(-this.PositionX >> 1, -1200 + (this.PositionY >> 1));
         this.layerClouds.setPosition(-this.PositionX, -1200 + this.PositionY);
