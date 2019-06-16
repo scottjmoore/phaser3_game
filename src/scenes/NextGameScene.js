@@ -1,6 +1,6 @@
 import 'phaser';
 import logoImg from '../assets/logo.png';
-import marioTilesImg from '../assets/mario_tiles.png';
+import marioTilesImg from '../assets/mario_tiles_extruded.png';
 import ballImg from '../assets/ball-sprite.18x18.png';
 import tokiImg from '../assets/toki.0.0.png';
 import level0JSON from '../assets/maps/level0.json';
@@ -35,11 +35,11 @@ export default class NextGameScene extends Phaser.Scene {
 
         this.level = this.add.tilemap('level0');
         this.tileset = this.level.addTilesetImage('mario_tiles', 'mario_tiles');
-        this.layerBackground = this.level.createStaticLayer('Background', this.tileset).setScale(3, 3).setDepth(1);
-        // this.layerHills = this.level.createStaticLayer('Hills', this.tileset).setScale(3, 3).setDepth(2);
-        // this.layerClouds = this.level.createStaticLayer('Clouds', this.tileset).setScale(3, 3).setDepth(3);
-        this.layerForeground = this.level.createStaticLayer('Foreground', this.tileset).setScale(3, 3).setDepth(4);
-        this.layerItems = this.level.createDynamicLayer('Items', this.tileset).setScale(3, 3).setDepth(5);
+        this.layerBackground = this.level.createStaticLayer('Background', this.tileset).setScale(4, 4).setDepth(1);
+        // this.layerHills = this.level.createStaticLayer('Hills', this.tileset).setScale(4, 4).setDepth(2);
+        // this.layerClouds = this.level.createStaticLayer('Clouds', this.tileset).setScale(4, 4).setDepth(3);
+        this.layerForeground = this.level.createStaticLayer('Foreground', this.tileset).setScale(4, 4).setDepth(4);
+        this.layerItems = this.level.createDynamicLayer('Items', this.tileset).setScale(4, 4).setDepth(5);
         this.layerItems.setTileIndexCallback([11, 12, 18, 19], (sprite, tile) => {
             //console.log(`Sprite: ${sprite}, Tile: ${tile}`);
             this.layerItems.removeTileAt(tile.x, tile.y);
@@ -53,7 +53,7 @@ export default class NextGameScene extends Phaser.Scene {
         this.othertileset = this.otherlevel.addTilesetImage('other', 'other');
         this.otherlayer = this.otherlevel.createStaticLayer('Foreground',this.othertileset).setScale(0.5, 0.5).setDepth(6).setAlpha(0);
 
-        this.knight1 = this.physics.add.sprite(100, 500, 'knight').setScale(1, 1).setDepth(4);
+        this.knight1 = this.physics.add.sprite(100, 500, 'knight').setScale(1.0, 1.0).setDepth(4);
 	    this.knight1.setBounce(0.1);
         this.layerForeground.setCollisionByExclusion([-1]);
 	    this.physics.add.collider(this.knight1, this.layerForeground);
@@ -62,13 +62,13 @@ export default class NextGameScene extends Phaser.Scene {
         this.cameras.main.setBounds(0, 0, this.level.widthInPixels * 4, this.level.heightInPixels * 4);
         //this.knight1.setBounds(0, 0, this.level.widthInPixels * 4, this.level.heightInPixels * 4);
         this.cameraDolly = new Phaser.Geom.Point(Math.floor(this.knight1.x), Math.floor(this.knight1.y));
-        this.cameras.main.startFollow(this.cameraDolly, true, 1.0, 1.0, 0.0, 0.5);
+        this.cameras.main.startFollow(this.cameraDolly, true, 0.1, 0.1, 0.0, 0.0);
         this.cameras.main.setBackgroundColor('#ccccff');
         
         this.anims.create({
             key: 'knightwalk',
             repeat: -1,
-	    yoyo: 0,
+	        yoyo: 0,
             frameRate: 15,
             frames: this.anims.generateFrameNames('knight', {
                 prefix: 'Walk (',
@@ -123,7 +123,7 @@ export default class NextGameScene extends Phaser.Scene {
 
         this.input.on('pointerdown', (e) => {
 	        if (this.knight1.body.onFloor()) {
-                this.knight1.setVelocityY(-500);
+                this.knight1.setVelocityY(-550);
                 this.frameCount = 0;
 	        }
         }, this);
@@ -145,14 +145,14 @@ export default class NextGameScene extends Phaser.Scene {
             //this.PositionX--;
             this.knight1.setVelocityX(-100);
             this.frameCount = 0
-            this.knight1.scaleX = -1;
+            this.knight1.scaleX = -1.0;
             moving = true;
         }
         if (this.keyRight.isDown == true) {
             //this.PositionX++;
             this.knight1.setVelocityX(100);
             this.frameCount = 0
-            this.knight1.scaleX = 1;
+            this.knight1.scaleX = 1.0;
             moving = true;
         }
         // if (this.keyUp.isDown == true) {
@@ -171,7 +171,7 @@ export default class NextGameScene extends Phaser.Scene {
         if (this.frameCount > 90) {
             //this.PositionX++;
             this.knight1.setVelocityX(100);
-            this.knight1.scaleX = 1;
+            this.knight1.scaleX = 1.0;
             moving = true;
 	    }
 
@@ -204,6 +204,6 @@ export default class NextGameScene extends Phaser.Scene {
         // this.cameras.main.scrollY = this.knight1.y - 600;
 
         this.cameraDolly.x = Math.floor(this.knight1.x);
-        this.cameraDolly.y = Math.floor(this.knight1.y) - 256;
+        this.cameraDolly.y = Math.floor(this.knight1.y);
     }
 }
