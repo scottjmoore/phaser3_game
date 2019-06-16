@@ -43,7 +43,7 @@ export default class NextGameScene extends Phaser.Scene {
 
         this.otherlevel = this.add.tilemap('otherlevel');
         this.othertileset = this.otherlevel.addTilesetImage('other', 'other');
-        this.otherlayer = this.otherlevel.createStaticLayer('Foreground',this.othertileset).setScale(0.5, 0.5).setDepth(6).setAlpha(0.5);
+        this.otherlayer = this.otherlevel.createStaticLayer('Foreground',this.othertileset).setScale(0.5, 0.5).setDepth(6).setAlpha(1.0);
 
         this.knight1 = this.add.sprite(100, 748, 'knight').setDepth(4);
 
@@ -162,6 +162,7 @@ export default class NextGameScene extends Phaser.Scene {
         this.layerForeground.setPosition(-this.PositionX << 1, -1200 + (this.PositionY << 1));
         this.layerGrass.setPosition(-this.PositionX << 1, -1200 + (this.PositionY << 1));
 
+        this.otherlayer.setPosition(-this.PositionX << 2, 0);
         // console.log(`Knight anim : ${this.knight1.anims.currentAnim.key}`);
  
         if ((moving === true) && (this.knight1.anims.currentAnim.key != 'knightwalk')) {
