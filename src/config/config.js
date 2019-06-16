@@ -5,13 +5,14 @@ export default {
     height: window.innerHeight,
     pixelArt: true,
     roundPixels: true,
-    scale: {
+    /*scale: {
         mode: Phaser.Scale.FIT,
         autoCenter: Phaser.Scale.CENTER_BOTH
-    },
+    },*/
     physics: {
         default: "arcade",
         arcade: {
+            debug: false,
             gravity: {y: 500}
         }
     }
