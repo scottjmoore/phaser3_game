@@ -47,6 +47,7 @@ export default class NextGameScene extends Phaser.Scene {
 
         this.knight1 = this.physics.add.sprite(100, 100, 'knight').setScale(2, 2).setDepth(4);
 	this.knight1.setCollideWorldBounds(true);
+	this.knight1.setBounce(0.1);
 	this.layerForeground.setCollisionByExclusion([-1]);
 	this.physics.add.collider(this.knight1, this.layerForeground);
         // const knight2 = this.add.sprite(150, 100, 'knight');
@@ -108,12 +109,9 @@ export default class NextGameScene extends Phaser.Scene {
         this.keyDown = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.S);
 
         this.input.on('pointerdown', (e) => {
-            const physicsImg = this.physics.add.sprite(e.x, e.y, Phaser.Math.RND.integerInRange(0, 1) ? 'ball' : 'toki');
-            physicsImg.setScale(Phaser.Math.RND.integerInRange(3, 5));
-            physicsImg.setAngularVelocity(Phaser.Math.RND.integerInRange(-180, 180));
-            physicsImg.setCollideWorldBounds(true, true, true);
-            physicsImg.setVelocity(Phaser.Math.RND.integerInRange(-300, 300), 200);
-            physicsImg.setDepth(Phaser.Math.RND.integerInRange(1, 10));
+	    if (this.knight1.body.onFloor()) {
+	        this.knight1.setVelocityY(-300);
+	    }
         }, this);
 
         this.input.keyboard.on('keyup', (e) => {
