@@ -45,7 +45,7 @@ export default class NextGameScene extends Phaser.Scene {
         this.othertileset = this.otherlevel.addTilesetImage('other', 'other');
         this.otherlayer = this.otherlevel.createStaticLayer('Foreground',this.othertileset).setScale(0.5, 0.5).setDepth(6).setAlpha(1.0);
 
-        this.knight1 = this.physics.add.sprite(100, 100, 'knight').setDepth(4);
+        this.knight1 = this.physics.add.sprite(100, 100, 'knight').setScale(2, 2).setDepth(4);
 	this.knight1.setCollideWorldBounds(true);
 	this.layerForeground.setCollisionByExclusion([-1]);
 	this.physics.add.collider(this.knight1, this.layerForeground);
@@ -132,13 +132,13 @@ export default class NextGameScene extends Phaser.Scene {
         if (this.keyLeft.isDown == true) {
             this.PositionX--;
             this.frameCount = 0
-            this.knight1.scaleX = -1;
+            this.knight1.scaleX = -2;
             moving = true;
         }
         if (this.keyRight.isDown == true) {
             this.PositionX++;
             this.frameCount = 0
-            this.knight1.scaleX = 1;
+            this.knight1.scaleX = 2;
             moving = true;
         }
         if (this.keyUp.isDown == true) {
@@ -156,7 +156,7 @@ export default class NextGameScene extends Phaser.Scene {
     
         if (this.frameCount > 90) {
             this.PositionX++;
-            this.knight1.scaleX = 1;
+            this.knight1.scaleX = 2;
             moving = true;
 	    }
 
