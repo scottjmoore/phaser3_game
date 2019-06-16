@@ -28,6 +28,7 @@ export default class NextGameScene extends Phaser.Scene {
     create() {
         //this.logo = this.add.image(window.innerWidth / 2, window.innerHeight / 2, 'logo').setDepth(2);;
         
+        this.knightAutoMoveSpeed = 100;
         this.text1 = this.add.text(1, 4, "Welcome to the next scene!", {font: "40px Impact"}).setDepth(4);
 	    this.text2 = this.add.text(4, 1, "Welcome to the next scene!", {font: "40px Impact"}).setDepth(5);	
 	    this.text1.setColor('black');
@@ -41,7 +42,11 @@ export default class NextGameScene extends Phaser.Scene {
         this.layerForeground = this.level.createStaticLayer('Foreground', this.tileset).setScale(4, 4).setDepth(4);
         this.layerItems = this.level.createDynamicLayer('Items', this.tileset).setScale(4, 4).setDepth(5);
         this.layerItems.setTileIndexCallback([11, 12, 18, 19], (sprite, tile) => {
-            //console.log(`Sprite: ${sprite}, Tile: ${tile}`);
+            console.log(`${tile.index},${tile.x},${tile.y}`);
+            if ((tile.index === 12) || (tile.index === 18)) {
+                // console.log('Flip sprite!');
+                // this.knightAutoMoveSpeed = - this.knightAutoMoveSpeed;
+            }
             this.layerItems.removeTileAt(tile.x, tile.y);
             return false;
         }, this);
@@ -124,7 +129,7 @@ export default class NextGameScene extends Phaser.Scene {
         this.input.on('pointerdown', (e) => {
 	        if (this.knight1.body.onFloor()) {
                 this.knight1.setVelocityY(-550);
-                this.frameCount = 0;
+                //this.frameCount = 0;
 	        }
         }, this);
 
@@ -170,7 +175,7 @@ export default class NextGameScene extends Phaser.Scene {
     
         if (this.frameCount > 90) {
             //this.PositionX++;
-            this.knight1.setVelocityX(100);
+            this.knight1.setVelocityX(this.knightAutoMoveSpeed);
             this.knight1.scaleX = 1.0;
             moving = true;
 	    }
