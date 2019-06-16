@@ -26,7 +26,7 @@ export default class NextGameScene extends Phaser.Scene {
     }
 
     create() {
-        this.logo = this.add.image(window.innerWidth / 2, window.innerHeight / 2, 'logo').setDepth(2);;
+        //this.logo = this.add.image(window.innerWidth / 2, window.innerHeight / 2, 'logo').setDepth(2);;
         
         this.text1 = this.add.text(1, 4, "Welcome to the next scene!", {font: "40px Impact"}).setDepth(4);
 	    this.text2 = this.add.text(4, 1, "Welcome to the next scene!", {font: "40px Impact"}).setDepth(5);	
@@ -43,9 +43,9 @@ export default class NextGameScene extends Phaser.Scene {
 
         this.otherlevel = this.add.tilemap('otherlevel');
         this.othertileset = this.otherlevel.addTilesetImage('other', 'other');
-        this.otherlayer = this.otherlevel.createStaticLayer('Foreground',this.othertileset).setScale(0.5, 0.5).setDepth(6).setAlpha(1.0);
+        this.otherlayer = this.otherlevel.createStaticLayer('Foreground',this.othertileset).setScale(0.5, 0.5).setDepth(6).setAlpha(0);
 
-        this.knight1 = this.physics.add.sprite(100, 100, 'knight').setScale(2, 2).setDepth(4);
+        this.knight1 = this.physics.add.sprite(100, 500, 'knight').setScale(1, 1).setDepth(4);
 	this.knight1.setCollideWorldBounds(true);
 	this.knight1.setBounce(0.1);
 	this.layerForeground.setCollisionByExclusion([-1]);
@@ -56,7 +56,7 @@ export default class NextGameScene extends Phaser.Scene {
             key: 'knightwalk',
             repeat: -1,
 	    yoyo: 0,
-            frameRate: 10,
+            frameRate: 15,
             frames: this.anims.generateFrameNames('knight', {
                 prefix: 'Walk (',
                 suffix: ').png',
@@ -110,7 +110,7 @@ export default class NextGameScene extends Phaser.Scene {
 
         this.input.on('pointerdown', (e) => {
 	    if (this.knight1.body.onFloor()) {
-	        this.knight1.setVelocityY(-300);
+	        this.knight1.setVelocityY(-400);
 	    }
         }, this);
 
@@ -130,13 +130,13 @@ export default class NextGameScene extends Phaser.Scene {
         if (this.keyLeft.isDown == true) {
             this.PositionX--;
             this.frameCount = 0
-            this.knight1.scaleX = -2;
+            this.knight1.scaleX = -1;
             moving = true;
         }
         if (this.keyRight.isDown == true) {
             this.PositionX++;
             this.frameCount = 0
-            this.knight1.scaleX = 2;
+            this.knight1.scaleX = 1;
             moving = true;
         }
         if (this.keyUp.isDown == true) {
@@ -154,7 +154,7 @@ export default class NextGameScene extends Phaser.Scene {
     
         if (this.frameCount > 90) {
             this.PositionX++;
-            this.knight1.scaleX = 2;
+            this.knight1.scaleX = 1;
             moving = true;
 	    }
 
