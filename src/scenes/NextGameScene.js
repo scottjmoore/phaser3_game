@@ -45,8 +45,10 @@ export default class NextGameScene extends Phaser.Scene {
         this.othertileset = this.otherlevel.addTilesetImage('other', 'other');
         this.otherlayer = this.otherlevel.createStaticLayer('Foreground',this.othertileset).setScale(0.5, 0.5).setDepth(6).setAlpha(1.0);
 
-        this.knight1 = this.add.sprite(100, 748, 'knight').setDepth(4);
-
+        this.knight1 = this.physics.add.sprite(100, 100, 'knight').setDepth(4);
+	this.knight1.setCollideWorldBounds(true);
+	this.layerForeground.setCollisionByExclusion([-1]);
+	this.physics.add.collider(this.knight1, this.layerForeground);
         // const knight2 = this.add.sprite(150, 100, 'knight');
 
         this.anims.create({
