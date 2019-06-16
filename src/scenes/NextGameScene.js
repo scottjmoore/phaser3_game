@@ -52,6 +52,7 @@ export default class NextGameScene extends Phaser.Scene {
         this.anims.create({
             key: 'knightwalk',
             repeat: -1,
+	    yoyo: 0,
             frameRate: 10,
             frames: this.anims.generateFrameNames('knight', {
                 prefix: 'Walk (',
