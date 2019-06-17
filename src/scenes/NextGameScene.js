@@ -38,7 +38,7 @@ export default class NextGameScene extends Phaser.Scene {
 
         this.knight1 = this.physics.add.sprite(100, 500, 'knight').setDepth(4);
         this.knight1.setBounce(0.1);
-        this.knight1.body.setSize(40, 72);
+        this.knight1.body.setSize(32, 72);
         this.layerForeground.setCollisionByExclusion([-1]);
 	    this.physics.add.collider(this.knight1, this.layerForeground);
         this.physics.add.overlap(this.knight1, this.layerItems);
