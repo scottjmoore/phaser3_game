@@ -4,7 +4,7 @@ export default {
     width: window.innerWidth,
     height: window.innerHeight,
     pixelArt: true,
-    roundPixels: true,
+    roundPixels: false,
     /*scale: {
         mode: Phaser.Scale.FIT,
         autoCenter: Phaser.Scale.CENTER_BOTH
